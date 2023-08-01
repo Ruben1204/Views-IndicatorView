@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:ControlesTipoVista.ViewModel"
+             x:Class="ControlesTipoVista.Views.Indicator_Vista"
+             Title="Indicator_Vista">
+    <ContentPage.BindingContext>
+        <local:ListViewModel/>
+    </ContentPage.BindingContext>
+
+    <ContentPage.Resources>
+        <Style x:Name="estiloIndicador"
+               TargetType="Label">
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal">
+                            <VisualState.Setters>
+                                <Setter Property="TextColor"
+                                        Value="LightGray"/>
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="Selected">
+                            <VisualState.Setters>
+                                <Setter Property="TextColor"
+                                        Value="Salmon"/>
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+    </ContentPage.Resources>
+    
+    <VerticalStackLayout>
+        <CarouselView ItemsSource="{Binding Robots}"
+                      IndicatorView="VistaIndicador">
+            <CarouselView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout>
+                        <Frame HasShadow="True"
+                               BorderColor="DarkGray"
+                               CornerRadius="5"
+                               Margin="20"
+                               WidthRequest="150"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"
+                               >
+
+                            <StackLayout>
+
+                                <Label Text="{Binding Nombre}"
+                                           FontAttributes="Bold"
+                                           FontSize="18"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center"/>
+                                <Image Source="{Binding Imagen}"
+                                           Aspect="AspectFit"
+                                           HeightRequest="150"
+                                           WidthRequest="150"
+                                           HorizontalOptions="Center"/>
+
+                                <Label Text="{Binding Peso}"
+                                           HorizontalOptions="Center"/>
+                                <Label Text="{Binding Details}"
+                                           FontAttributes="Italic"
+                                           HorizontalOptions="Center"
+                                           MaxLines="5"
+                                           LineBreakMode="TailTruncation"/>
+
+                            </StackLayout>
+
+                        </Frame>
+                    </StackLayout>
+                </DataTemplate>
+            </CarouselView.ItemTemplate>
+        </CarouselView>
+
+        <IndicatorView x:Name="VistaIndicador"
+                       IndicatorColor="Transparent"
+                       SelectedIndicatorColor="Transparent"
+                       HorizontalOptions="Center"
+                       IndicatorSize="24"
+                       MaximumVisible="4"
+                       >
+            <IndicatorView.IndicatorTemplate>
+                <DataTemplate>
+                    <Label Text="&#x2605;"
+                           FontSize="16"
+                           Style="{StaticResource estiloIndicador}"/>
+                </DataTemplate>
+            </IndicatorView.IndicatorTemplate>
+        </IndicatorView>
+        
+
+    </VerticalStackLayout>
+</ContentPage>

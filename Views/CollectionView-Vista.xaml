@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:ControlesTipoVista.ViewModel"
+             xmlns:local1="clr-namespace:ControlesTipoVista.Data"
+             x:Class="ControlesTipoVista.Views.CollectionView_Vista"
+             Title="CollectionView_Vista"
+             FlowDirection="LeftToRight">
+    <ContentPage.BindingContext>
+        <local:ListViewModel/>
+    </ContentPage.BindingContext>
+
+    <ContentPage.Resources>
+        <!--<ContentView x:Key="VistaVaciaBasica">
+            <StackLayout>
+                <Label Text="No Existen Elementos Para Mostrar."
+                       Margin="10,25,10,10"
+                       FontAttributes="Bold"
+                       FontSize="18"
+                       HorizontalOptions="Fill"
+                       HorizontalTextAlignment="Center"/>
+            </StackLayout>
+        </ContentView>
+        <ContentView x:Key="VistaVaciaAvanzada">
+            <StackLayout>
+                <Label Text="No se encontraron resultados de tu busqueda."
+                       Margin="10,25,10,10"
+                       FontAttributes="Bold"
+                       FontSize="18"
+                       HorizontalOptions="Fill"
+                       HorizontalTextAlignment="Center" />
+                <Label Text="Intenta buscar de nuevo?"
+                       FontAttributes="Italic"
+                       FontSize="12"
+                       HorizontalOptions="Fill"
+                       HorizontalTextAlignment="Center" />
+            </StackLayout>
+        </ContentView>-->
+        <!--<DataTemplate x:Key="PlantillaImagenActiva">
+            <SwipeView>
+                <SwipeView.LeftItems>
+                    <SwipeItems>
+                        <SwipeItem Text="Favorito"
+                                   IconImageSource="favorite.png"
+                                   BackgroundColor="LightGreen"/>
+                        <SwipeItem Text="Eliminar"
+                                   IconImageSource="delete.png"
+                                   BackgroundColor="LightPink"/>
+                    </SwipeItems>
+                </SwipeView.LeftItems>
+            <Grid Padding="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Image Grid.RowSpan="2"
+                                   Source="{Binding Imagen}"
+                                   Aspect="AspectFit"
+                                   HeightRequest="60"
+                                   WidthRequest="60"/>
+                <Label Grid.Column="1"
+                                   Text="{Binding Nombre}"
+                                   FontAttributes="Bold"/>
+                <Label Grid.Column="1"
+                                   Grid.Row="1"
+                                   Text="{Binding Details}"
+                                   FontAttributes="Italic"
+                                   VerticalOptions="End"/>
+            </Grid>
+            </SwipeView>
+        </DataTemplate>
+
+        <DataTemplate x:Key="PlantillaImagenInactiva">
+            <Grid Padding="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Image Grid.RowSpan="2"
+                                   Source="{Binding Imagen}"
+                                   Aspect="AspectFit"
+                                   HeightRequest="60"
+                                   WidthRequest="60"/>
+                <Label Grid.Column="1"
+                                   Text="{Binding Nombre}"
+                                   FontAttributes="Bold"
+                                   TextColor="LightGray"/>
+                <Label Grid.Column="1"
+                                   Grid.Row="1"
+                                   Text="{Binding Details}"
+                                   FontAttributes="Italic"
+                                   VerticalOptions="End"
+                                   TextColor="LightGray"/>
+            </Grid>
+        </DataTemplate>-->
+        <!--<local1:PlantillaSeleccionEstadoRobot x:Key="SelectorRobot"
+                                              RobotActivo="{StaticResource PlantillaImagenActiva}"
+                                              RobotInActivo="{StaticResource PlantillaImagenInactiva}"/>-->
+        <Style TargetType="Grid">
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal"/>
+                        <VisualState x:Name="Selected">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor"
+                                        Value="LightSkyBlue"/>
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+    </ContentPage.Resources>
+
+   
+    <ScrollView>
+        
+        <StackLayout HorizontalOptions="Center">
+            <!--<SearchBar x:Name="searchBar"
+                       SearchCommand="{Binding FilterCommand}"
+                       SearchCommandParameter="{Binding Source={x:Reference searchBar}, Path=Text}"
+                       Placeholder="Buscar"/>-->
+            <!--<StackLayout Orientation="Horizontal" Spacing="20">
+                <Label Text="Mostrar Posibles Respuestas de Vistas Vacias ó Vistas de Contenido"
+                       HorizontalOptions="Center"/>
+                <Switch Toggled="Switch_Toggled"/>
+            </StackLayout>-->
+            <!--<RefreshView IsRefreshing="{Binding PropiedadManejaEstado}"
+                         Command="{Binding ComandoRefrescar}"/>-->
+
+            <!--<Label x:Name="lbl1"
+           HorizontalOptions="Center"/>
+            <Label x:Name="lbl2"
+           HorizontalOptions="Center"/>-->
+            
+            <CollectionView ItemsSource="{Binding Robots}"
+                            x:Name="collectionView"
+                            RemainingItemsThreshold="5"
+                            RemainingItemsThresholdReached="CollectionView_RemainingItemsThresholdReached"
+                            FlowDirection="MatchParent"
+                            ItemSizingStrategy="MeasureAllItems"
+                            SelectionMode="None"
+                            SelectedItems="{Binding SelectedRobots}"
+                            SelectionChanged="CollectionView_SelectionChanged"
+                            IsGrouped="True">
+
+                <CollectionView.GroupHeaderTemplate>
+                    <DataTemplate>
+                        <Label Text="{Binding Name}"
+                               BackgroundColor="LightSalmon"
+                               FontSize="18"
+                               FontAttributes="Bold"
+                               HorizontalTextAlignment="Center"/>
+                    </DataTemplate>
+                </CollectionView.GroupHeaderTemplate>
+
+                <CollectionView.GroupFooterTemplate>
+                    <DataTemplate>
+                        <Label Text="{Binding Count, StringFormat='Total Elemnentos: {0:D}'}"
+                               Margin="0,0,0,10"/>
+                    </DataTemplate>
+                </CollectionView.GroupFooterTemplate>
+               
+                <!--<CollectionView.EmptyView>
+                    <ContentView>
+                        <StackLayout BackgroundColor="Orange"
+                                     Spacing="20"
+                                     Margin="20"
+                                     Padding="20">
+                            <Label Text="Error al cargar los datos."
+                                   HorizontalOptions="Center"
+                                   TextColor="Purple"/>
+                            <Button Text="Volver a Cargar"
+                                    HorizontalOptions="Center"/>
+                        </StackLayout>
+                    </ContentView>
+                </CollectionView.EmptyView>-->
+                <!--<CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Padding="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Image Grid.RowSpan="2"
+                                   Source="{Binding Imagen}"
+                                   Aspect="AspectFit"
+                                   HeightRequest="60"
+                                   WidthRequest="60"/>
+                            <Label Grid.Column="1"
+                                   Text="{Binding Nombre}"
+                                   FontAttributes="Bold"
+                                   />
+                            <Label Grid.Column="1"
+                                   Grid.Row="1"
+                                   Text="{Binding Details}"
+                                   FontAttributes="Italic"
+                                   VerticalOptions="End"
+                                   />
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>-->
+                
+                <!--<CollectionView.EmptyView>
+                    <local1:FiltrarDatos Filter="{Binding Source={x:Reference searchBar}, Path=Text}"/>
+                </CollectionView.EmptyView>-->
+
+                <!--<CollectionView.EmptyViewTemplate>
+                    <DataTemplate>
+                        <Label Text="{Binding Filter, StringFormat='Tu busqueda {0} no se pudo encontrar'}"
+                               Margin="10,25,10,10"
+                               FontAttributes="Bold"
+                               FontSize="18"
+                               HorizontalOptions="Fill"
+                               HorizontalTextAlignment="Center"/>
+                    </DataTemplate>
+                </CollectionView.EmptyViewTemplate>-->
+                
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical"
+                                     Span="1"
+                                     VerticalItemSpacing="20"/>
+                </CollectionView.ItemsLayout>
+                <!--<CollectionView.Header>
+                    <StackLayout BackgroundColor="Orange">
+                        <Label Text="Logo de Maui"
+                               TextColor="Blue"
+                               HorizontalOptions="Center"/>
+                    </StackLayout>
+                </CollectionView.Header>
+
+                <CollectionView.Footer>
+                    <StackLayout BackgroundColor="LightGreen">
+                        <Label Text="2023"
+                               TextColor="Blue"
+                               HorizontalOptions="Center"/>
+                    </StackLayout>
+                </CollectionView.Footer>-->
+                <!--<CollectionView.HeaderTemplate>
+                    <DataTemplate>
+                        <StackLayout BackgroundColor="Orange">
+                            <Label Text="Logo de Maui"
+                               TextColor="Blue"
+                               HorizontalOptions="Center"/>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.HeaderTemplate>-->
+
+                <!--<CollectionView.FooterTemplate>
+                    <DataTemplate>
+                        <StackLayout BackgroundColor="LightGreen">
+                            <Label Text="2023"
+                                   TextColor="Blue"
+                                   HorizontalOptions="Center"/>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.FooterTemplate>-->
+            </CollectionView>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>
